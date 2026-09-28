@@ -1,16 +1,44 @@
-# React + Vite
+# MAX Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Веб-клиент мессенджера MAX, работающий через [Green API](https://green-api.com). Позволяет войти по данным инстанса, начать чат по номеру телефона, отправлять и получать текстовые сообщения со статусами доставки.
 
-Currently, two official plugins are available:
+## Возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Вход по `idInstance` и `apiTokenInstance` с проверкой, что инстанс авторизован
+- Создание чата по номеру телефона
+- Отправка сообщений и отображение статусов (отправлено / доставлено / прочитано)
+- Получение входящих в реальном времени через `receiveNotification` (long polling)
+- Автоматическая проверка и включение нужных настроек уведомлений инстанса
+- Сохранение данных входа и истории чатов в `localStorage`
 
-## React Compiler
+## Стек
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React 19, TypeScript, Vite, axios, ESLint, Prettier.
 
-## Expanding the ESLint configuration
+## Требования
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Node.js 20.19+ или 22.12+
+- Инстанс Green API в статусе `authorized` (создаётся и авторизуется в [личном кабинете](https://console.green-api.com))
+
+> Поле `webhookUrl` у инстанса должно быть пустым — иначе уведомления уходят на внешний адрес и не попадают в приложение.
+
+## Запуск
+
+```bash
+git clone https://github.com/dclxxxvi/max-client.git
+cd max-client
+npm install
+npm run dev
+```
+
+Откройте адрес, который выведет Vite (по умолчанию http://localhost:5173), и введите `idInstance` и `apiTokenInstance`. Поле `apiUrl` можно оставить пустым — адрес будет определён по `idInstance`.
+
+## Скрипты
+
+| Команда           | Описание                                    |
+| ----------------- | ------------------------------------------- |
+| `npm run dev`     | Dev-сервер с HMR                            |
+| `npm run build`   | Проверка типов и production-сборка в `dist` |
+| `npm run preview` | Локальный просмотр production-сборки        |
+| `npm run lint`    | Проверка ESLint                             |
+| `npm run format`  | Форматирование Prettier                     |
