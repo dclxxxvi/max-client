@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { createGreenApi, defaultApiUrl, getErrorMessage, type Credentials } from '../api';
+import { createGreenApi, DEFAULT_API_URL, getErrorMessage, type Credentials } from '../api';
 
 export function LoginScreen({ onLogin }: { onLogin: (credentials: Credentials) => void }) {
   const [idInstance, setIdInstance] = useState('');
@@ -13,7 +13,7 @@ export function LoginScreen({ onLogin }: { onLogin: (credentials: Credentials) =
     const credentials: Credentials = {
       idInstance: idInstance.trim(),
       apiTokenInstance: apiTokenInstance.trim(),
-      apiUrl: apiUrl.trim() || defaultApiUrl(idInstance.trim()),
+      apiUrl: apiUrl.trim() || DEFAULT_API_URL,
     };
     setError(null);
     setLoading(true);
@@ -62,11 +62,7 @@ export function LoginScreen({ onLogin }: { onLogin: (credentials: Credentials) =
         </label>
         <label className="field">
           <span>apiUrl</span>
-          <input
-            value={apiUrl}
-            onChange={(e) => setApiUrl(e.target.value)}
-            placeholder={idInstance.trim() ? defaultApiUrl(idInstance.trim()) : 'https://1101.api.green-api.com'}
-          />
+          <input value={apiUrl} onChange={(e) => setApiUrl(e.target.value)} placeholder={DEFAULT_API_URL} />
         </label>
 
         {error && <div className="error">{error}</div>}

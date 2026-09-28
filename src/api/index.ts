@@ -10,6 +10,8 @@ import type {
 
 export type * from './types';
 
+export const DEFAULT_API_URL = 'https://4100.api.green-api.com';
+
 const RECEIVE_TIMEOUT = 20;
 
 export function createGreenApi({ apiUrl, idInstance, apiTokenInstance }: Credentials) {
